@@ -9,11 +9,11 @@ const VacationList = () => {
     const fetchVacations = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8080/api/spots", {
+        const response = await axios.get("http://localhost:8080/api/spots?available=true", {
           headers: {
-            Authorization: `Bearer ${token}`, // Token'ı buraya ekle
+            Authorization: `Bearer ${token}`,
           },
-        }); // Tatil yerlerini getiren endpoint
+        });
         setVacations(response.data);
       } catch (error) {
         console.error("Tatil yerlerini alırken bir hata oluştu:", error);
@@ -25,14 +25,15 @@ const VacationList = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
-      {vacations.map((vacation) => (
-        <div
-          key={vacation.id}
-          className="transition-transform transform hover:scale-105"
-        >
-          <VacationCard vacation={vacation} />
-        </div>
-      ))}
+      {vacations.length > 0 ? (
+        vacations.map((vacation) => (
+          <div key={vacation.id} className="transition-transform transform hover:scale-105">
+            <VacationCard vacation={vacation} />
+          </div>
+        ))
+      ) : (
+        <p className="text-white">Mevcut tatil yeri bulunmamaktadır.</p>
+      )}
     </div>
   );
 };
