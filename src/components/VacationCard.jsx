@@ -6,7 +6,7 @@ const VacationCard = ({ vacation }) => {
 
   const handleReservationClick = (e) => {
     e.stopPropagation(); // Kart tıklamasını durdur
-    navigate('/reservation'); // İstediğiniz URL'ye yönlendirme
+    navigate(`/reserve/${vacation.id}`); // Doğru URL'ye yönlendirme
   };
 
   return (
